@@ -5,19 +5,24 @@ const draftDate = new Date("2025-10-17T22:00:00+02:00");
 
 // Fun NBA quotes
 const funQuotes = [
-  "Ready to draft your championship team? 🏆",
-  "Time to separate the ballers from the benchwarmers! 💪",
-  "Draft day approaching... May the best GM win! 🎯",
-  "Building dynasties, one pick at a time! 🏗️",
-  "The clock is ticking... Choose wisely! ⏰",
-  "Future hall of famers await your selection! ⭐",
-  "Draft prep mode: ACTIVATED! 🔥",
-  "Who's going #1 overall in your heart? ❤️",
-  "From sleepers to superstars - draft them all! 🌟",
-  "Basketball IQ test incoming... Are you ready? 🧠",
+  "תייס ולופז מתחת לסלים",
+  "ניצחת",
+  "ברכות",
+  "לא בושה להפסיד לסלבדור",
+  "מה פספסתי? 200 הודעות",
+  "כדאי שתשמור על הפה שלך",
+  "אני בחוץ",
+  "כולנו יד אחת נגד בלבי",
+  "זהירות - גניבת דעת",
+  "5:4 לאחד מהצדדים",
+  "טרי רוזיר למשרפות טרבלינקה",
+  "אליפות עם כוכבית",
+  "וטו",
 ];
 
 let currentQuoteIndex = 0;
+let shuffledQuotes = [];
+let shuffleIndex = 0;
 
 // Update countdown every second
 function updateCountdown() {
@@ -60,7 +65,7 @@ function updateCountdown() {
     document.getElementById("seconds").textContent = "00";
 
     document.getElementById("quote").textContent =
-      "IT'S DRAFT TIME! 🚀 Good luck!";
+      '"IT\'S DRAFT TIME! 🚀 Good luck!"';
     confetti();
   }
 }
@@ -76,14 +81,32 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Rotate fun quotes every 5 seconds
+// Shuffle the quotes array
+function shuffleQuotes() {
+  shuffledQuotes = [...funQuotes];
+  for (let i = shuffledQuotes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledQuotes[i], shuffledQuotes[j]] = [
+      shuffledQuotes[j],
+      shuffledQuotes[i],
+    ];
+  }
+  shuffleIndex = 0;
+}
+
+// Rotate through shuffled quotes
 function rotateQuotes() {
   const quoteElement = document.getElementById("quote");
   quoteElement.style.opacity = "0";
 
   setTimeout(() => {
-    currentQuoteIndex = (currentQuoteIndex + 1) % funQuotes.length;
-    quoteElement.textContent = funQuotes[currentQuoteIndex];
+    // If we've shown all quotes, reshuffle
+    if (shuffleIndex >= shuffledQuotes.length) {
+      shuffleQuotes();
+    }
+
+    quoteElement.textContent = `"${shuffledQuotes[shuffleIndex]}"`;
+    shuffleIndex++;
     quoteElement.style.opacity = "1";
   }, 300);
 }
@@ -164,7 +187,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // Add hover effects to time blocks
-document.querySelectorAll(".time-block").forEach((block) => {
+document.querySelectorAll(".time-block").forEach((block, index) => {
   block.addEventListener("mouseenter", () => {
     block.style.transform = "translateY(-10px) scale(1.05)";
   });
@@ -174,15 +197,122 @@ document.querySelectorAll(".time-block").forEach((block) => {
   });
 });
 
-// Add click effect to quotes
+// Add click effect to quotes (just rotation, no sound)
 document.getElementById("quote").addEventListener("click", () => {
   rotateQuotes();
 });
 
+// Preload and setup audio
+let draftAudio = null;
+let audioReady = false;
+
+// Initialize audio immediately
+function initializeAudio() {
+  try {
+    draftAudio = new Audio("NBADraftSoundEffect.mp3");
+    draftAudio.volume = 0.7;
+    draftAudio.preload = "auto";
+
+    // Try to load the audio file
+    draftAudio.load();
+
+    draftAudio.addEventListener("canplaythrough", () => {
+      audioReady = true;
+    });
+
+    draftAudio.addEventListener("error", (e) => {
+      console.log("Audio failed to load:", e);
+      audioReady = false;
+    });
+  } catch (error) {
+    console.log("Audio initialization failed:", error);
+  }
+}
+
+// Initialize audio immediately when script loads
+initializeAudio();
+
+// NBA Draft selection sound effect - authentic draft chime
+function playDraftSound() {
+  try {
+    if (draftAudio && audioReady) {
+      // Reset audio to beginning
+      draftAudio.currentTime = 0;
+
+      // Attempt to play
+      const playPromise = draftAudio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          // Silently fail - autoplay was prevented
+          console.log("Autoplay prevented:", error.name);
+        });
+      }
+    }
+
+    // Add enhanced visual feedback to minutes block
+    const minutesElement = document.getElementById("minutes");
+    const minutesBlock = minutesElement.parentElement;
+
+    minutesBlock.style.borderColor = "#FFD700";
+    minutesBlock.style.boxShadow = "0 0 30px #FFD700, 0 0 50px #FF6B35";
+    minutesBlock.style.animation = "draftGlow 0.8s ease-in-out";
+    minutesElement.style.color = "#FFD700";
+    minutesElement.style.textShadow = "0 0 15px #FFD700";
+
+    setTimeout(() => {
+      minutesBlock.style.borderColor = "";
+      minutesBlock.style.boxShadow = "";
+      minutesBlock.style.animation = "";
+      minutesElement.style.color = "";
+      minutesElement.style.textShadow = "";
+    }, 800);
+  } catch (error) {
+    console.log("NBA Draft sound failed to play:", error);
+
+    // Visual feedback only fallback
+    const minutesElement = document.getElementById("minutes");
+    const minutesBlock = minutesElement.parentElement;
+
+    minutesBlock.style.borderColor = "#FFD700";
+    minutesBlock.style.boxShadow = "0 0 20px #FFD700";
+    minutesElement.style.color = "#FFD700";
+
+    setTimeout(() => {
+      minutesBlock.style.borderColor = "";
+      minutesBlock.style.boxShadow = "";
+      minutesElement.style.color = "";
+    }, 500);
+  }
+}
+
 // Initialize countdown and start intervals
 updateCountdown();
 setInterval(updateCountdown, 1000);
-setInterval(rotateQuotes, 5000);
+
+// Initialize shuffled quotes and show first one immediately
+shuffleQuotes();
+document.getElementById(
+  "quote"
+).textContent = `"${shuffledQuotes[shuffleIndex]}"`;
+shuffleIndex++;
+
+// Then rotate quotes every 3 seconds
+setInterval(rotateQuotes, 3000);
+
+// Play welcome sound on first click anywhere on the website
+let hasPlayedWelcomeSound = false;
+
+document.addEventListener(
+  "click",
+  () => {
+    if (!hasPlayedWelcomeSound) {
+      playDraftSound();
+      hasPlayedWelcomeSound = true;
+    }
+  },
+  { once: false }
+); // Don't use once: true because we want to check the flag ourselves
 
 // Display current time in different timezones for reference
 function displayTimezones() {
@@ -226,6 +356,40 @@ document.addEventListener("keydown", (e) => {
     konamiCode = [];
   }
 });
+
+// Google Calendar integration
+function addToCalendar() {
+  const title = "Broadcast Room 2025 Fantasy League Draft";
+  const description =
+    "Time to draft your championship team! 🏆🏀\n\nDraft Order:\n1st - Amir\n2nd - Kazi\n3rd - Eyal\n4th - Matananas\n5th - Nadav\n6th - Volvo\n7th - Balbi\n8th - Ben\n\nGood luck everyone!";
+
+  // Draft date: October 17, 2025, 22:00-23:30 Israel Time
+  // Use local time format and let the timezone parameter handle the conversion
+  const startDate = "20251017T220000"; // 22:00 Israel Time (no Z = local time)
+  const endDate = "20251017T233000"; // End at 23:30 same day (1.5 hour duration)
+
+  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+    title
+  )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
+    description
+  )}&location=${encodeURIComponent(
+    "Broadcast Room 2025 Fantasy League Draft"
+  )}&ctz=Asia/Jerusalem`;
+
+  // Open in new tab
+  window.open(googleCalendarUrl, "_blank");
+
+  // Visual feedback
+  const calendarIcon = document.querySelector(".calendar-icon");
+  const originalText = calendarIcon.innerHTML;
+  calendarIcon.innerHTML = "✅";
+  calendarIcon.style.background = "rgba(0, 255, 0, 0.2)";
+
+  setTimeout(() => {
+    calendarIcon.innerHTML = originalText;
+    calendarIcon.style.background = "rgba(255, 215, 0, 0.1)";
+  }, 2000);
+}
 
 // Performance optimization: pause animations when tab is not visible
 document.addEventListener("visibilitychange", () => {

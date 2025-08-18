@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NBA Draft Countdown 🏀</title>
+    <title>Broadcast Room Fantasy League 2025 Draft Countdown 🏀</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap"
@@ -17,11 +17,23 @@
       <header>
         <div class="logo">
           <span class="basketball">🏀</span>
-          <h1>NBA DRAFT COUNTDOWN</h1>
+          <h1>Broadcast Room 2025</h1>
           <span class="basketball">🏀</span>
         </div>
         <p class="subtitle">Fantasy League Draft Time!</p>
       </header>
+
+      <div class="draft-info">
+        <h2>
+          October 17, 2025 | 22:00 Israel Time
+          <span
+            class="calendar-icon"
+            onclick="addToCalendar()"
+            title="Add to Google Calendar"
+            >📅</span
+          >
+        </h2>
+      </div>
 
       <div class="countdown-container">
         <div class="countdown" id="countdown">
@@ -44,11 +56,56 @@
         </div>
       </div>
 
-      <div class="draft-info">
-        <h2>📅 October 17, 2025 | 22:00 Israel Time</h2>
-        <p class="fun-quote" id="quote">
-          Ready to draft your championship team? 🏆
-        </p>
+      <div class="quotes-section">
+        <p class="fun-quote" id="quote"></p>
+      </div>
+
+      <div class="draft-order-section">
+        <h2 class="draft-order-title">🏆 BROADCAST ROOM 2025 DRAFT ORDER 🏆</h2>
+        <div class="table-container">
+          <table class="draft-table">
+            <thead>
+              <tr>
+                <th>Pick</th>
+                <th>Player</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-pick="1" class="draft-row first-pick">
+                <td class="pick-number">1st</td>
+                <td class="pick-name">Amir</td>
+              </tr>
+              <tr data-pick="2" class="draft-row">
+                <td class="pick-number">2nd</td>
+                <td class="pick-name">Kazi</td>
+              </tr>
+              <tr data-pick="3" class="draft-row">
+                <td class="pick-number">3rd</td>
+                <td class="pick-name">Eyal</td>
+              </tr>
+              <tr data-pick="4" class="draft-row">
+                <td class="pick-number">4th</td>
+                <td class="pick-name">Matananas</td>
+              </tr>
+              <tr data-pick="5" class="draft-row">
+                <td class="pick-number">5th</td>
+                <td class="pick-name">Nadav</td>
+              </tr>
+              <tr data-pick="6" class="draft-row">
+                <td class="pick-number">6th</td>
+                <td class="pick-name">Volvo</td>
+              </tr>
+              <tr data-pick="7" class="draft-row">
+                <td class="pick-number">7th</td>
+                <td class="pick-name">Balbi</td>
+              </tr>
+              <tr data-pick="8" class="draft-row">
+                <td class="pick-number">8th</td>
+                <td class="pick-name">Ben</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div class="basketball-court">
