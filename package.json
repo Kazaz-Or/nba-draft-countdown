@@ -1,0 +1,33 @@
+{
+  "name": "nba-draft-countdown",
+  "version": "1.0.0",
+  "description": "A fun NBA Fantasy League Draft countdown website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 -o",
+    "deploy:netlify": "npx netlify deploy --prod --dir .",
+    "deploy:vercel": "npx vercel --prod"
+  },
+  "keywords": [
+    "nba",
+    "basketball",
+    "countdown",
+    "draft",
+    "fantasy",
+    "sports"
+  ],
+  "author": "Or Kazaz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/nba-draft-countdown.git"
+  },
+  "homepage": "https://yourusername.github.io/nba-draft-countdown/",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
