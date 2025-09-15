@@ -1,7 +1,7 @@
-// Draft date: October 17, 2025, 22:00 Israel Time
+// Draft date: October 8, 2025, 21:00 Israel Time
 // Israel Time is UTC+3 (during daylight saving) or UTC+2 (standard time)
 // In October 2025, Israel will be in standard time (UTC+2)
-const draftDate = new Date("2025-10-17T22:00:00+02:00");
+const draftDate = new Date("2025-10-08T21:00:00+02:00");
 
 // Fun NBA quotes
 const funQuotes = [
@@ -324,7 +324,7 @@ function displayTimezones() {
   });
 
   console.log(`Current Israel Time: ${israelTime}`);
-  console.log(`Draft Date: October 17, 2025, 22:00 Israel Time`);
+  console.log(`Draft Date: October 8, 2025, 21:00 Israel Time`);
 }
 
 displayTimezones();
@@ -362,12 +362,12 @@ document.addEventListener("keydown", (e) => {
 function addToCalendar() {
   const title = "Broadcast Room 2025 Fantasy League Draft";
   const description =
-    "Time to draft your championship team! 🏆🏀\n\nDraft Order:\n1st - Amir\n2nd - Kazi\n3rd - Eyal\n4th - Matananas\n5th - Nadav\n6th - Volvo\n7th - Balbi\n8th - Ben\n\nGood luck everyone!";
+    "Time to draft your championship team! 🏆🏀\n\nDraft Order:\n1st - Kazi\n2nd - Volvo\n3rd - Balbi\n4th - Rafael\n5th - Amir\n6th - Eyal\n7th - Nadav\n8th - Amit\n9th - Michael\n10th - Matananas\n\nGood luck everyone!";
 
-  // Draft date: October 17, 2025, 22:00-23:30 Israel Time
+  // Draft date: October 8, 2025, 21:00-22:30 Israel Time
   // Use local time format and let the timezone parameter handle the conversion
-  const startDate = "20251017T220000"; // 22:00 Israel Time (no Z = local time)
-  const endDate = "20251017T233000"; // End at 23:30 same day (1.5 hour duration)
+  const startDate = "20251008T210000"; // 21:00 Israel Time (no Z = local time)
+  const endDate = "20251008T223000"; // End at 22:30 same day (1.5 hour duration)
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
     title
